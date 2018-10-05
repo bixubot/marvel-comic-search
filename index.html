@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="js/md5.min.js"></script>
+    <script src="js/query.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <!--<script src="js/popper.min.js"></script>-->
+    <!--<script src="js/bootstrap.min.js"></script>-->
+    <!--<script src="js/bootstrap.bundle.min.js"></script>-->
+    <!--<script type="text/javascript">-->
+        <!--$(document).ready(function () {-->
+            <!--$('[data-toggle="tooltip"]').tooltip();-->
+        <!--});-->
+    <!--</script>-->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/cover.css" rel="stylesheet">
+
+    <title>Marvel Comics Search</title>
+</head>
+<body>
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+
+            <div class="cover-container">
+
+                <div class="masthead">
+                    <div class="inner">
+                        <!--<h3 class="masthead-brand">MARVEL</h3>-->
+                        <img class="masthead-brand" height="51.5" width="128" src="img/MarvelLogo.png">
+                        <nav>
+                            <ul class="nav masthead-nav">
+                                <button type="button" class="btn btn-secondary" onclick="location.reload();">Restart</button>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">Marvel Comics</h1>
+                    <p class="lead">Search with the starting letters of comics' titles</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Title starts with: </span>
+                        </div>
+                        <input type="text" class="form-control" id="title" value="Avengers" aria-label="title" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend" data-toggle="tooltip" data-placement="bottom" title="Year of the series' first issue">
+                            <span class="input-group-text" id="basic-addon2">Start year: </span>
+                        </div>
+                        <input type="text" class="form-control" id="startYear" value="2000" aria-label="startYear" aria-describedby="basic-addon2">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="issueFormat">Issue format: </label>
+                        </div>
+                        <select class="custom-select" id="issueFormat">
+                            <option value="comic">Comic</option>
+                            <option value="magazine">Magazine</option>
+                            <option value="trade paperback">Trade paperback</option>
+                            <option value="digital comic">Digital comic</option>
+                            <option value="hardcover">Hardcover</option>
+                            <option value="graphic novel">Graphic novel</option>
+                            <option value="infinite comic">Infinite comic</option>
+                            <option value="digest">Digest</option>
+                        </select>
+                    </div>
+                    <p class="lead">
+                        <button onclick="getMarvelResponse();" id="searchButton" class="btn btn-lg btn-default">SEARCH</button>
+                    </p>
+                </div>
+
+                <div class="table-actions" id="table-actions">
+                    <button id="sortOrder" onclick="changeSortOrder();" type="button" class="btn btn-outline-light btn-sm col-item" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        Ascending
+                    </button>
+                    <div class="btn-right btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-light btn-sm"><input type="radio" name="options" id="sortTitle" autocomplete="off">Title</label>
+                        <label class="btn btn-outline-light btn-sm"><input type="radio" name="options" id="sortIssue" autocomplete="off">Issue Number</label>
+                    </div>
+                </div>
+
+                <div class="list-group search-result" id="result">
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+</html>
