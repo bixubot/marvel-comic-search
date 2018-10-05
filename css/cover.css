@@ -135,7 +135,7 @@ body {
  */
 .table-actions {
     padding: 0 40px;
-    visibility: visible;
+    visibility: hidden;
     margin-bottom: 5px;
 }
 
@@ -147,9 +147,10 @@ body {
  * Search Result
  */
 .search-result {
-    margin-top: 55px;
+    margin-top: 5px;
     margin-bottom: 50px;
     padding: 0 40px;
+    float:right;
 }
 
 .card-content {

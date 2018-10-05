@@ -75,22 +75,22 @@
                     </p>
                 </div>
 
-                <div class="table-actions" id="table-actions">
-                    <button id="sortOrder" onclick="changeSortOrder();" type="button" class="btn btn-outline-light btn-sm col-item" data-toggle="button" aria-pressed="false" autocomplete="off">
-                        Ascending
-                    </button>
+                <div class="container-fluid table-actions" id="table-actions">
                     <div class="btn-right btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-light btn-sm"><input type="radio" name="options" id="sortTitle" autocomplete="off">Title</label>
-                        <label class="btn btn-outline-light btn-sm"><input type="radio" name="options" id="sortIssue" autocomplete="off">Issue Number</label>
+                        <button id="sortOrder" onclick="changeSortOrder();" type="button" class="btn btn-warning btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                            Ascending
+                        </button>
+                        <label class="btn btn-outline-light btn-sm"><input onfocus="sortBy('title');" type="radio" name="options" id="sortTitle" autocomplete="off">Title</label>
+                        <label class="btn btn-outline-light btn-sm"><input onfocus="sortBy('issueNumber');" type="radio" name="options" id="sortIssue" autocomplete="off">Issue Number</label>
                     </div>
                 </div>
 
-                <div class="list-group search-result" id="result">
+                <div class="container-fluid list-group search-result" id="result">
                 </div>
 
                 <div class="mastfoot">
                     <div class="inner">
-                        <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+                        <p>Empowered by <a href="https://developer.marvel.com/">Marvel</a> & <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://github.com/bixubot">@bixubot</a>.</p>
                     </div>
                 </div>
 

@@ -4,10 +4,12 @@ const PUBLIC_KEY = "2a019e7db0853f68be9f54c805253592";
 // const PRIVATE_KEY = "544ea10de8973bd949f986f0607faa96bc92bf88";
 // const PUBLIC_KEY = "1252db1789cdde15d2a58d418d371e64";
 const imgNotFound = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
-const emptyTitleAlert = '<div class="alert alert-danger fade show" role="alert" data-dismiss="alert">Title cannot be empty! Please try with some starting words or letters.<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
-const emptyYearAlert = '<div class="alert alert-danger fade show" role="alert" data-dismiss="alert">Start year is invalid or empty! Try a year after 1967.<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
+const emptyTitleAlert = '<div class="alert alert-danger fade show" role="alert" data-dismiss="alert"><u>Title</u> cannot be empty! Please try with some starting words or letters.<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
+const emptyYearAlert = '<div class="alert alert-danger fade show" role="alert" data-dismiss="alert"><u>Start year</u> is invalid or empty! Try a year after 1967.<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
 const emptyResultAlert = '<div class="alert alert-warning fade show" role="alert" data-dismiss="alert">Sorry, no record matches the requested information! Try something different.<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>';
 var sortOrder = 1; // 1 for ascending, 2 for descending
+var sortType = "";
+var sorted = false;
 var resultList;
 var pageCount;
 
@@ -16,8 +18,13 @@ function clearStatus(){
     pageCount = 0;
     document.getElementById("result").innerHTML = "";
 }
+function enableTooltip(){
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+}
 
-function changeSortOrder(){
+function changeSortOrder() {
     if (sortOrder == 1) {
         sortOrder = 2;
         $('#sortOrder').text("Descending");
@@ -25,18 +32,76 @@ function changeSortOrder(){
         sortOrder = 1;
         $('#sortOrder').text("Ascending");
     }
+    if (sorted) {
+        if (sortType === "title") {
+            sortBy("title");
+        } else if (sortType === "issueNumber") {
+            sortBy("issueNumber");
+        }
+    }
 }
 
-function sortBy(){
-    return null;
+function showFirstPage(){
+    pageCount = 0;
+    document.getElementById("result").innerHTML = "";
+    var init = pageCount*10;
+    var end = resultList.length < init+10 ? resultList.length : init+10;
+    for (var i = pageCount*10; i<end; i++){
+        $('#result').append(resultList[i].html);
+    }
+    enableTooltip();
+}
+
+function sortBy(type){
+    sorted = true;
+    sortType = type;
+    if (type === "title"){
+        resultList.sort(function(x,y){
+            var xn = x.title;
+            var yn = y.title;
+            if (sortOrder == 1){
+                var r = (xn == yn ? 0 : xn < yn ? -1 : 1);
+            } else {
+                var r = (xn == yn ? 0 : xn > yn ? -1 : 1);
+            }
+            return r;
+        });
+        showFirstPage();
+    } else {
+        resultList.sort(function(x,y){
+            var xn = x.issueNumber;
+            var yn = y.issueNumber;
+            if (sortOrder == 1){
+                var r = (xn == yn ? 0 : xn < yn ? -1 : 1);
+            } else {
+                var r = (xn == yn ? 0 : xn > yn ? -1 : 1);
+            }
+            return r;
+        });
+        showFirstPage();
+    }
 }
 
 function nextPage(){
-    return null;
+    pageCount += 1;
+    var init = pageCount*10;
+    var end = init+10;
+    document.getElementById("result").innerHTML = "";
+    for (var i = pageCount*10; i<end; i++){
+        $('#result').append(resultList[i].html);
+    }
+    enableTooltip();
 }
 
 function prevPage(){
-    return null;
+    pageCount -= 1;
+    var init = pageCount*10;
+    var end = init+10;
+    document.getElementById("result").innerHTML = "";
+    for (var i = pageCount*10; i<end; i++){
+        $('#result').append(resultList[i].html);
+    }
+    enableTooltip();
 }
 
 function listItem(item, i, total_count, callback) {
@@ -93,7 +158,7 @@ function listItem(item, i, total_count, callback) {
                         itemString += '<div class="collapse" id="collapseExample'+i+'"><div class="card card-body"><div class="media card-content"><img class="mr-3" width="128" src="'+imgSrc+'" alt="unnamed.jpg">'
                             +'<div class="media-body"><h5 class="mt-0">Description</h5>'+description+'</div></div>'+charHTML+'</div></div>';
 
-                        callback(i, itemString);
+                        callback(i, itemString, title, issueNumber);
                     }
                 })
                 .fail(function(err) {
@@ -109,7 +174,7 @@ function listItem(item, i, total_count, callback) {
         itemString += '<div class="collapse" id="collapseExample'+i+'"><div class="card card-body"><div class="media card-content"><img class="mr-3" width="128" src="'+imgSrc+'" alt="unnamed.jpg">'
             +'<div class="media-body"><h5 class="mt-0">Description</h5>'+description+'</div></div>'+charHTML+'</div></div>';
 
-        callback(i, itemString);
+        callback(i, itemString, title, issueNumber);
     }
 }
 
@@ -143,18 +208,20 @@ function getMarvelResponse(){
         .done(function(data){
             console.log(data);
             if (data.data.count == 0){
+                document.getElementById("table-actions").style.visibility = "hidden";
                 $('#result').append(emptyResultAlert);
                 return resultList;
             }
+            document.getElementById("table-actions").style.visibility = "visible";
             for (var i = 0; i < data.data.count; i++) {
-                listItem(data.data.results[i], i, data.data.count, function(l, item){
+                listItem(data.data.results[i], i, data.data.count, function(l, item, t, n){
                     if (l < 10) {
                         $('#result').append(item);
                     }
                     $(document).ready(function () {
                         $('[data-toggle="tooltip"]').tooltip();
                     });
-                    resultList[l] = item;
+                    resultList[l] = {html: item, title:t, issueNumber: n};
                 });
             }
         })
