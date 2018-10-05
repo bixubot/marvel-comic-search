@@ -47,6 +47,8 @@ body {
 .site-wrapper-inner {
     display: table-cell;
     vertical-align: top;
+    margin-right: auto;
+    margin-left: auto;
 }
 .cover-container {
     margin-right: auto;
@@ -139,6 +141,18 @@ body {
     margin-bottom: 5px;
 }
 
+.next-page {
+    margin-right: 5px;
+}
+
+.prev-page {
+    margin-right: 5px;
+}
+
+.btn-left {
+    float: left;
+}
+
 .btn-right {
     float: right;
 }
@@ -148,7 +162,7 @@ body {
  */
 .search-result {
     margin-top: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 5px;
     padding: 0 40px;
     float:right;
 }
@@ -174,11 +188,23 @@ body {
     height: 64px;
     overflow: hidden;
 }
+
+.foot-container {
+    padding: 0 40px;
+    visibility: hidden;
+}
+
+.progress-bar-diy {
+    height: 5px;
+    width: 100%;
+}
+
 /*
  * Footer
  */
 
 .mastfoot {
+    margin-top: 25px;
     bottom: 10px;
     color: #999; /* IE8 proofing */
     color: rgba(255,255,255,.5);
@@ -213,6 +239,9 @@ body {
 @media (min-width: 992px) {
     .masthead,
     .mastfoot,
+    .site-wrapper-inner {
+        width: 700px;
+    }
     .cover-container {
         width: 700px;
     }

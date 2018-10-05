@@ -76,16 +76,25 @@
                 </div>
 
                 <div class="container-fluid table-actions" id="table-actions">
+                    <div class="btn-left page-action" id="pageAction">
+                    </div>
+
                     <div class="btn-right btn-group btn-group-toggle" data-toggle="buttons">
                         <button id="sortOrder" onclick="changeSortOrder();" type="button" class="btn btn-warning btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
                             Ascending
                         </button>
-                        <label class="btn btn-outline-light btn-sm"><input onfocus="sortBy('title');" type="radio" name="options" id="sortTitle" autocomplete="off">Title</label>
-                        <label class="btn btn-outline-light btn-sm"><input onfocus="sortBy('issueNumber');" type="radio" name="options" id="sortIssue" autocomplete="off">Issue Number</label>
+                        <label class="btn btn-outline-light btn-sm" id="sort-title-button"><input onfocus="sortBy('title');" type="radio" name="options" id="sortTitle" autocomplete="off">Title</label>
+                        <label class="btn btn-outline-light btn-sm" id="sort-issue-button"><input onfocus="sortBy('issueNumber');" type="radio" name="options" id="sortIssue" autocomplete="off">Issue Number</label>
                     </div>
                 </div>
 
                 <div class="container-fluid list-group search-result" id="result">
+                </div>
+
+                <div class="cover-container foot-container" id="progress">
+                    <div class="progress progress-bar-diy">
+                        <div id="progress-bar" class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
 
                 <div class="mastfoot">
@@ -93,7 +102,6 @@
                         <p>Empowered by <a href="https://developer.marvel.com/">Marvel</a> & <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://github.com/bixubot">@bixubot</a>.</p>
                     </div>
                 </div>
-
             </div>
 
         </div>
