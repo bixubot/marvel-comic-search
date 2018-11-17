@@ -257,6 +257,8 @@ function listItem(item, i, total_count, callback) {
 
 // tribute to Stan Lee
 function excelsior(){
+    document.getElementById("modal-content").innerHTML = "";
+    document.getElementById("modal-content").innerHTML = "<img width='100%' src='img/tribute.gif'>";
     $("#excelsior").modal("show"); //show gif
     var audio = new Audio('src/avengers-theme-piano-tribute.mp3');
     audio.play(); // play theme
