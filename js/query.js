@@ -255,6 +255,14 @@ function listItem(item, i, total_count, callback) {
     }
 }
 
+// tribute to Stan Lee
+function excelsior(){
+    $("#excelsior").modal("show"); //show gif
+    var audio = new Audio('src/avengers-theme-piano-tribute.mp3');
+    audio.play(); // play theme
+}
+
+// triggered when search button is clicked on
 function getMarvelResponse(){
     clearStatus();
     var ts = new Date().getTime();
@@ -272,6 +280,11 @@ function getMarvelResponse(){
         return null;
     }
     var format = document.getElementById("issueFormat").value;
+
+    if ((titleStartWith == "Stan Lee") || (titleStartWith == "Excelsior")) {
+        excelsior();
+        return resultList;
+    }
 
     $.getJSON(url, {
         ts: ts,
